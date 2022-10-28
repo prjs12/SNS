@@ -60,10 +60,10 @@ public class MemberRepository {
                 .withTableName(TABLE)
                 .usingGeneratedKeyColumns("id");
         SqlParameterSource params = new BeanPropertySqlParameterSource(member);
-        long id = simpleJdbcInsert.execute(params);
+        Number id = simpleJdbcInsert.executeAndReturnKey(params);
         return Member
                 .builder()
-                .id(id)
+                .id(id.longValue())
                 .email(member.getEmail())
                 .nickname(member.getNickname())
                 .birthday(member.getBirthday())
